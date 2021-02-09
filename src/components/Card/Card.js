@@ -1,5 +1,6 @@
 import React from "react";
 import typeColors from '../../helpers/typeColors'
+import Progressbar from '../Progressbar/Progressbar'
 import './style.css'
 
 
@@ -25,16 +26,28 @@ const Card = ({ pokemon }) => {
             </div>
             <div className="Card__info">
                 <div className="Card__data">
-                    <p className="title">Titulo</p>
-                    <p>valor</p>
+                    <p className="title">Peso</p>
+                    <p>{pokemon.weight}</p>
                 </div>
                 <div className="Card__data">
-                    <p className="title">Titulo</p>
-                    <p>valor</p>
+                    <p className="title">Altura</p>
+                    <p>{pokemon.height}</p>
                 </div>
                 <div className="Card__data">
-                    <p className="title">Titulo</p>
-                    <p>valor</p>
+                    <p className="title">Habilidades</p>
+                        {pokemon.abilities.map((ability, i) => {
+                            return <p key={i}> {ability.ability.name} </p>
+                        })}
+                </div>
+                <div className="Card__data">
+                    <p className="title">Estadisticas</p>
+                        {pokemon.stats.map((stat, i) => {
+                            return <Progressbar 
+                                        key={i} 
+                                        percentaje={stat.base_stat * 100 / 255}
+                                        statValue = {stat.base_stat}
+                                        statName={stat.stat.name} />
+                        })}
                 </div>
             </div>
         </div>

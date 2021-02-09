@@ -1,0 +1,27 @@
+
+.main__div {
+    height: 20px;
+    width: 100%;
+    background-color: #e0e0de;
+    border-radius: 8px;
+    margin-top: 2px;
+}
+
+.child__div {
+  height: 100%;
+  background-color: red;
+  border-radius: inherit;
+  text-align: right;
+}
+
+.progressbar__text {
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.stat-name {
+  font-size: 12px;
+  margin-top: 5px;
+}
