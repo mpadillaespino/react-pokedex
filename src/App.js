@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getAllPokemon, getPokemonDetail } from './services/pokemonApi'
+import Card from './components/Card'
+import Navbar from './components/Navbar'
 import './App.css';
 
 const App = () => {
@@ -45,15 +47,26 @@ const App = () => {
 
   return (
     <>
+      <Navbar />
       {
         loading ? <h1>Cargando...</h1> : (
           <>
-            <button onClick={movePage} value="prev">Prev</button>
-            <button onClick={movePage} value="next">Next</button>
-            {pokemonData.map((pokemon) => 
-            <li key={pokemon.id}>
-              {pokemon.name}
-            </li>)}
+            <div className="btn">
+              <button onClick={movePage} value="prev">Anterior</button>
+              <button onClick={movePage} value="next">Siguiente</button>
+            </div>
+            <div className="grid-container">
+              {pokemonData.map((pokemon) => 
+                <Card 
+                  key={pokemon.id}
+                  pokemon={pokemon} 
+                />
+              )}
+            </div>
+            <div className="btn">
+              <button onClick={movePage} value="prev">Anterior</button>
+              <button onClick={movePage} value="next">Siguiente</button>
+            </div>
           </>
         )
       }
