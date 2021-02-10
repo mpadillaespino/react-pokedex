@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { AnimatedList } from "react-animated-list";
+import Loader from "react-loader-spinner";
 import { getAllPokemon, getPokemonDetail } from './services/pokemonApi'
+import { loaderProps } from './helpers/commons'
 import Card from './components/Card'
 import Navbar from './components/Navbar'
 import './App.css';
@@ -29,9 +32,8 @@ const App = () => {
     }
 
     const movePage = async (e) => {
-        const action = e.target.value;
-        const url = action === "prev" ? prevUrl : nextUrl;
-        if (action === "prev" && !prevUrl) return;
+        const url = e.target.value === "prev" ? prevUrl : nextUrl;
+        if (!url) return;
         setLoading(true);
         let response = await getAllPokemon(url)
         await loadPokemonData(response.results)
@@ -48,26 +50,40 @@ const App = () => {
     return (
         <>
             <Navbar />
-            {
-                loading ? <h1>Cargando...</h1> : (
-                    <>
-                        <div className="btn">
-                            <button onClick={movePage} value="prev">Anterior</button>
-                            <button onClick={movePage} value="next">Siguiente</button>
+            <div className="btn">
+                <button onClick={movePage} value="prev">{`<<`}</button>
+                <button onClick={movePage} value="next">{`>>`}</button>
+            </div>
+            <div className="grid-container">
+                {
+                    loading ? (
+                        <div className="center-loader">
+                            <Loader 
+                                type={loaderProps.type} 
+                                color={loaderProps.color} 
+                                height={loaderProps.height} 
+                                width={loaderProps.width} />
                         </div>
-                        <div className="grid-container">
+                    ) : (
+                        <AnimatedList
+                            animation={"fade"}
+                            initialAnimationDuration={4700}>
                             {pokemonData.map((pokemon) =>
                                 <Card
                                     key={pokemon.id}
                                     pokemon={pokemon}
                                 />
                             )}
-                        </div>
-                        <div className="btn">
-                            <button onClick={movePage} value="prev">Anterior</button>
-                            <button onClick={movePage} value="next">Siguiente</button>
-                        </div>
-                    </>
+                        </AnimatedList>
+                    )
+                }
+            </div>
+            { 
+                loading ? <></> : (
+                    <div className="btn">
+                        <button onClick={movePage} value="prev">{`<<`}</button>
+                        <button onClick={movePage} value="next">{`>>`}</button>
+                    </div>
                 )
             }
         </>

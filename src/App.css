@@ -18,11 +18,18 @@
 
 .btn button {
     border-style: none;
-    padding: 5px 10px;
-    margin-right: 10px;
+    padding: 10px 15px;
+    margin: 10px;
     border-radius: 5px;
     background: #30a7d7;
     color: #fff;
     font-size: 1em;
 
+}
+
+.center-loader {
+    position: fixed;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
 }

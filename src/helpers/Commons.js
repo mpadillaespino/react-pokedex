@@ -24,3 +24,10 @@ export const getShortStatNames = (longStatName) => {
     }
     return shortStatName
 }
+
+export const loaderProps = {
+    color: '#FF4236',
+    type: 'Oval',
+    height: 120,
+    width: '120',
+}

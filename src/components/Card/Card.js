@@ -24,23 +24,25 @@ const Card = ({ pokemon }) => {
                     )
                 })}
             </div>
+            <div className="Card__types">
+                <div className="Card__basicdata">
+                    <p className="Card__data__title">Peso</p>
+                    <p>{pokemon.weight / 10} kg</p>
+                </div>
+                <div className="Card__basicdata">
+                    <p className="Card__data__title">Altura</p>
+                    <p>{pokemon.height / 10} m</p>
+                </div>
+            </div>
             <div className="Card__info">
                 <div className="Card__data">
-                    <p className="title">Peso</p>
-                    <p>{pokemon.weight}</p>
-                </div>
-                <div className="Card__data">
-                    <p className="title">Altura</p>
-                    <p>{pokemon.height}</p>
-                </div>
-                <div className="Card__data">
-                    <p className="title">Habilidades</p>
+                    <p className="Card__data__title">Habilidades</p>
                         {pokemon.abilities.map((ability, i) => {
-                            return <p key={i}> {ability.ability.name} </p>
+                            return <li key={i}> {ability.ability.name} </li>
                         })}
                 </div>
                 <div className="Card__data">
-                    <p className="title">Estadisticas</p>
+                    <p className="Card__data__title">Estadisticas</p>
                         {pokemon.stats.map((stat, i) => {
                             return <Progressbar 
                                         key={i} 
