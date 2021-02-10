@@ -5,6 +5,8 @@ import { getAllPokemon, getPokemonDetail } from './services/pokemonApi'
 import { loaderProps } from './helpers/commons'
 import Card from './components/Card'
 import Navbar from './components/Navbar'
+import Searchbar from './components/Searchbar'
+import Footer from './components/Footer'
 import './App.css';
 
 const App = () => {
@@ -48,8 +50,9 @@ const App = () => {
 
 
     return (
-        <>
+        <div className="app__main__div">
             <Navbar />
+            <Searchbar />
             <div className="btn">
                 <button onClick={movePage} value="prev">{`<<`}</button>
                 <button onClick={movePage} value="next">{`>>`}</button>
@@ -86,7 +89,8 @@ const App = () => {
                     </div>
                 )
             }
-        </>
+            <Footer />
+        </div>
     );
 }
 

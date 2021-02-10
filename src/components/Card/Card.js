@@ -1,5 +1,5 @@
 import React from "react";
-import typeColors from '../../helpers/typeColors'
+import { typeColors } from '../../helpers/commons'
 import Progressbar from '../Progressbar/Progressbar'
 import './style.css'
 
@@ -42,7 +42,7 @@ const Card = ({ pokemon }) => {
                         })}
                 </div>
                 <div className="Card__data">
-                    <p className="Card__data__title">Estadisticas</p>
+                    <p className="Card__data__title">Estadísticas</p>
                         {pokemon.stats.map((stat, i) => {
                             return <Progressbar 
                                         key={i} 

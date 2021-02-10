@@ -1,0 +1,19 @@
+.footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    padding: 20px;
+    background: #363636;
+    color: white;
+}
+
+.footer span {
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: center;
+    font-size: 14px;
+}
