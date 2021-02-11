@@ -32,7 +32,7 @@ const App = () => {
             let pokemonRecord = await getPokemonDetail(pokemon.url)
             return pokemonRecord
         }))
-        setPokemonData(data)
+        setPokemonData(data.filter(item => item != null))
     }
 
     const movePage = async (e) => {
