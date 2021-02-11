@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Swal from 'sweetalert2'
 import { AnimatedList } from "react-animated-list";
 import Loader from "react-loader-spinner";
 import { getAllPokemon, getPokemonDetail } from './services/pokemonApi'
-import { loaderProps } from './helpers/commons'
+import { loaderProps, getSwalErrorDialog } from './helpers/commons'
 import Card from './components/Card'
 import Navbar from './components/Navbar'
 import Searchbar from './components/Searchbar'
@@ -13,7 +14,9 @@ const App = () => {
     const [nextUrl, setNextUrl] = useState('')
     const [prevUrl, setPrevUrl] = useState('')
     const [loading, setLoading] = useState(true)
+    const [search, setSearch] = useState(false)
     const [pokemonData, setPokemonData] = useState([])
+    const [pokemonSearched, setPokemonSearched] = useState({})
     const baseURL = 'https://pokeapi.co/api/v2/pokemon'
 
     const fetchInitialData = useCallback(async () => {
@@ -30,7 +33,6 @@ const App = () => {
             return pokemonRecord
         }))
         setPokemonData(data)
-        console.log(data)
     }
 
     const movePage = async (e) => {
@@ -44,19 +46,43 @@ const App = () => {
         setLoading(false)
     }
 
+    const searchPokemon = async (searchText) => {
+        setLoading(true);
+        const url = `${baseURL}/${searchText}`
+        const pokemonRecord = await getPokemonDetail(url)
+        setLoading(false)
+        if(pokemonRecord){
+            setPokemonSearched(pokemonRecord)
+            setSearch(true)
+        } else {
+            Swal.fire(getSwalErrorDialog("No pudimos encontrar al pokémon que buscas. Ingresa su nombre completo o su # en la pokédex."))
+        }
+    }
+
+    const endSearch = () => {
+        setSearch(false)
+    }
+
     useEffect(() => {
         fetchInitialData()
     }, [fetchInitialData])
 
-
     return (
         <div className="app__main__div">
             <Navbar />
-            <Searchbar />
-            <div className="btn">
-                <button onClick={movePage} value="prev">{`<<`}</button>
-                <button onClick={movePage} value="next">{`>>`}</button>
-            </div>
+            <Searchbar searchPokemon={searchPokemon} />
+            {
+                search ? (
+                    <div className="btn">
+                    <button onClick={endSearch} value="prev">{`VOLVER`}</button>
+                    </div>
+                ) : (
+                    <div className="btn">
+                        <button onClick={movePage} value="prev">{`<<`}</button>
+                        <button onClick={movePage} value="next">{`>>`}</button>
+                    </div>
+                )
+            }
             <div className="grid-container">
                 {
                     loading ? (
@@ -67,22 +93,25 @@ const App = () => {
                                 height={loaderProps.height} 
                                 width={loaderProps.width} />
                         </div>
-                    ) : (
-                        <AnimatedList
-                            animation={"fade"}
-                            initialAnimationDuration={4700}>
-                            {pokemonData.map((pokemon) =>
-                                <Card
-                                    key={pokemon.id}
-                                    pokemon={pokemon}
-                                />
-                            )}
-                        </AnimatedList>
-                    )
+                    ) : search ? <div><Card
+                                    key={pokemonSearched.id}
+                                    pokemon={pokemonSearched}/>
+                                 </div> : (
+                                            <AnimatedList
+                                                animation={"grow"}
+                                                initialAnimationDuration={2250}>
+                                                {pokemonData.map((pokemon) =>
+                                                    <Card
+                                                        key={pokemon.id}
+                                                        pokemon={pokemon}
+                                                    />
+                                                )}
+                                            </AnimatedList>
+                                        )
                 }
             </div>
             { 
-                loading ? <></> : (
+                loading || search ? <div className="btn"></div>: (
                     <div className="btn">
                         <button onClick={movePage} value="prev">{`<<`}</button>
                         <button onClick={movePage} value="next">{`>>`}</button>

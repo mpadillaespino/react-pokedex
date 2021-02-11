@@ -1,6 +1,7 @@
 import React from "react";
 import { typeColors } from '../../helpers/commons'
 import Progressbar from '../Progressbar/Progressbar'
+import { AnimatedList } from "react-animated-list";
 import './style.css'
 
 
@@ -43,6 +44,9 @@ const Card = ({ pokemon }) => {
                 </div>
                 <div className="Card__data">
                     <p className="Card__data__title">Estadísticas</p>
+                    <AnimatedList
+                        animation={"grow"}
+                        initialAnimationDuration={2250}>
                         {pokemon.stats.map((stat, i) => {
                             return <Progressbar 
                                         key={i} 
@@ -50,6 +54,7 @@ const Card = ({ pokemon }) => {
                                         statValue = {stat.base_stat}
                                         statName={stat.stat.name} />
                         })}
+                    </AnimatedList>
                 </div>
             </div>
         </div>

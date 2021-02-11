@@ -9,7 +9,7 @@
 
 .child__div {
   height: 100%;
-  background-color: red;
+  background: linear-gradient(90deg, rgba(162,219,150,1) 0%, rgba(36,204,169,1) 90%);
   border-radius: inherit;
   text-align: right;
 }

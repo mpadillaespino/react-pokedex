@@ -61,3 +61,12 @@ export const typeColors = {
     rock: '#a38c21',
     water: '#4592c4'
 }
+
+export const getSwalErrorDialog = (message) => {
+    return {
+        icon: 'error',
+        title: '¡Hubo un problema!',
+        text: message,
+        confirmButtonText: 'ACEPTAR',
+    }
+}
